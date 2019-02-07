@@ -6,12 +6,24 @@ import App from './components/App'
 import * as serviceWorker from './serviceWorker'
 import store from './redux/store'
 
-ReactDOM.render(
-  <StoreContext.Provider value={store}>
-    <App />
-  </StoreContext.Provider>,
-  document.getElementById('root')
-)
+const render = Component => {
+  return ReactDOM.render(
+    <StoreContext.Provider value={store}>
+      <Component />
+    </StoreContext.Provider>,
+    document.getElementById('root')
+  )
+}
+
+render(App)
+
+// Hot reloading
+if (module.hot) {
+  module.hot.accept('./components/App', () => {
+    const NextApp = require('./components/App').default
+    render(NextApp)
+  })
+}
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

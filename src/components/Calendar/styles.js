@@ -1,18 +1,22 @@
 import styled from 'styled-components'
 
-export const Headers = styled.div`
-  width: 100%;
-  background-color: blue;
-  text-align: center;
-  display: flex;
-  align-content: center;
-  justify-content: space-around;
-  padding: 1rem 0;
-  font-size: 2rem;
-  font-weight: 700;
+export const Grid = styled.div`
+  width: 75%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr [col-start]);
+  grid-template-rows: 1fr 1fr repeat(5, 3fr [row-start]);
+  font-weight: bold;
+  grid-auto-flow: row;
+  background-color: lightcoral;
 `
-
+export const DayOfTheWeek = styled.div`
+  text-align: center;
+  padding-top: 10px;
+  border: solid;
+`
 export const Header = styled.div`
-  flex: 1;
-  /* PAD: 10px 10px 10px 10px; */
+  padding-top: 15px;
+  text-align: center;
+  grid-area: 1 / 1 / 2 / 8;
 `
