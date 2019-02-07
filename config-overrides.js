@@ -1,3 +1,3 @@
-const { override, disableEsLint, addBabelPlugins } = require('customize-cra');
+const { override, disableEsLint, addBabelPlugins } = require('customize-cra')
 
-module.exports = override(disableEsLint(), ...addBabelPlugins('styled-components'));
+module.exports = override(disableEsLint(), ...addBabelPlugins('styled-components'))
