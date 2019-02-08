@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 import { StoreContext } from 'react-use-redux'
 
 import App from './components/App'
-import * as serviceWorker from './serviceWorker'
 import store from './redux/store'
+import * as serviceWorker from './serviceWorker'
 
 const render = Component => {
   return ReactDOM.render(
