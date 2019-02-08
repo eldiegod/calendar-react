@@ -13,17 +13,13 @@ const reducer = {
 const middleware = [...getDefaultMiddleware(), logger]
 
 const preloadedState = {
-  todos: [
-    {
-      text: 'Eat food',
-      completed: true
-    },
-    {
-      text: 'Exercise',
-      completed: false
+  reminders: {
+    '2019-02-19': {
+      time: '16:19',
+      description: 'This is first reminder',
+      color: '#FF3'
     }
-  ],
-  visibilityFilter: 'SHOW_COMPLETED'
+  }
 }
 
 export default configureStore({
