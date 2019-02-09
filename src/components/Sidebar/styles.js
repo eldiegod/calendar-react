@@ -7,7 +7,7 @@ export const Sidebar = styled.div`
   font-weight: bold;
   text-align: center;
   vertical-align: top;
-  background-color: blue;
+  background-color: aqua;
 `
 export const DateTitle = styled.div`
   margin-top: 15px;
