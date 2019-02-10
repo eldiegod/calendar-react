@@ -24,7 +24,6 @@ export const InputBase = styled.input`
   font-size: 0.75rem;
   font-weight: bold;
 `
-
 export const TimeInput = styled(InputBase)`
   width: 40%;
   text-align: center;
@@ -46,4 +45,5 @@ export const SaveReminderButton = styled.button`
   margin: 2rem auto;
   display: block;
   font-weight: bold;
+  cursor: pointer;
 `

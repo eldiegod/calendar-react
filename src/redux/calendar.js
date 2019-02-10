@@ -14,6 +14,12 @@ export const calendar = createSlice({
   reducers: {
     setCurrentDate: (state, action) => {
       state.currentDate = { ...state.currentDate, ...action.payload }
+    },
+    incrementMonth: (state, action) => {
+      state.currentDate.month = state.currentDate.month >= 12 ? 1 : state.currentDate.month + 1
+    },
+    decreaseMonth: (state, action) => {
+      state.currentDate.month = state.currentDate.month <= 1 ? 12 : state.currentDate.month - 1
     }
   }
 })

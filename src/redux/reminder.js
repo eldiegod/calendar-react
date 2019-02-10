@@ -11,21 +11,21 @@ export const reminder = createSlice({
         date: '2019-02-19',
         time: '10:19',
         description: 'This is first reminder',
-        color: '#00F'
+        color: '#5F000F'
       },
       {
         id: 2,
         date: '2019-02-19',
         time: '12:19',
         description: 'This is second reminder',
-        color: '#F2F'
+        color: '#250F2F'
       },
       {
         id: 3,
         date: '2019-02-19',
         time: '13:19',
         description: 'This is third reminder',
-        color: '#00F'
+        color: '#5F000F'
       }
     ]
   },

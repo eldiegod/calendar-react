@@ -20,3 +20,11 @@ export const Header = styled.div`
   text-align: center;
   grid-area: 1 / 1 / 2 / 8;
 `
+export const ChangeMonthButton = styled.button`
+  cursor: pointer;
+  font-size: 1rem;
+  text-decoration: underline;
+  margin: 0 25px;
+  background-color: transparent;
+  border: none;
+`

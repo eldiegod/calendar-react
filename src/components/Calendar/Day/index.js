@@ -13,7 +13,7 @@ const Day = ({ day, disabled, selected, reminders = [], onClick }) => {
           }`}</S.Reminder>
         ))}
       </S.Reminders>
-      {reminders.length > 2 && 'See more...'}
+      {reminders.length > 2 && <S.SeeMore>Click to see more...</S.SeeMore>}
     </S.Box>
   )
 }

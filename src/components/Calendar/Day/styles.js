@@ -17,16 +17,19 @@ export const Box = styled.div`
     background-color: white;
   }
 `
-
 export const Reminders = styled.div`
   padding-top: 10px;
+  margin-bottom: 5px;
 `
-
 export const Reminder = styled.div`
-  font-size: 0.75rem;
   color: white;
   background-color: ${prop('color', 'magenta')};
   /* margin-top: 5px; */
   padding: 5px;
+  font-size: 0.75rem;
+  word-break: break-all;
   /* text-align: right; */
+`
+export const SeeMore = styled.div`
+  font-size: 0.75rem;
 `
