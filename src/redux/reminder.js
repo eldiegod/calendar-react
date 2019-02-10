@@ -9,7 +9,7 @@ export const reminder = createSlice({
       {
         id: 1,
         date: '2019-02-19',
-        time: '16:19',
+        time: '10:19',
         description: 'This is first reminder',
         color: '#00F'
       },
@@ -37,12 +37,19 @@ export const reminder = createSlice({
     ]
   },
   reducers: {
+    // also sorts reminders by time
+    addReminder: (state, action) => {
+      const timeToNumber = time => {
+        return parseInt(time.replace(':', ''))
+      }
+      state.allReminders.push(action.payload)
+      state.allReminders.sort((a, b) => {
+        return timeToNumber(a.time) - timeToNumber(b.time)
+      })
+    },
     deleteReminderById: (state, action) => {
       return state.allReminders.filter(reminder => reminder.id !== action.payload)
     }
-    // addReminder: (state, action) => {
-    //   console.log('')
-    // }
   }
 })
 
@@ -56,3 +63,5 @@ export const getRemindersByDate = createSelector(
       return reminder.date === date
     })
 )
+
+export const reminderActions = reminder.actions

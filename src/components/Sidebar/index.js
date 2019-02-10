@@ -4,15 +4,23 @@ import moment from 'moment'
 
 import * as S from './styles'
 import { getCurrentFullDate } from 'redux/calendar'
-import { lighten } from 'polished'
+import { reminderActions } from 'redux/reminder'
 
-const useConnect = createUseConnect(state => ({
+const mapStateToProps = state => ({
   currentDate: state.calendar.currentDate,
   currentFullDate: getCurrentFullDate(state)
-}))
+})
+const mapDispatchToProps = dispatch => {
+  return {
+    // dispatching plain actions
+    addReminder: reminder => dispatch(reminderActions.addReminder(reminder)),
+    deleteReminderById: id => dispatch(reminderActions.deleteReminderById(id))
+  }
+}
+const useConnect = createUseConnect(mapStateToProps, mapDispatchToProps)
 
 const Sidebar = () => {
-  const { currentDate, currentFullDate } = useConnect()
+  const { currentDate, currentFullDate, addReminder, deleteReminderById } = useConnect()
   const [date, setDate] = useState(moment(currentFullDate).format('YYYY-MM-DD'))
   const [time, setTime] = useState(moment().format('hh:mm'))
   const [color, setColor] = useState('#ff40ff')
@@ -36,7 +44,18 @@ const Sidebar = () => {
         type="color"
         name="reminder_color"
       />
-      <S.SaveReminderInput onClick={e => e} type="submit" name="save_reminder">
+      <S.SaveReminderInput
+        onClick={() =>
+          addReminder({
+            date,
+            time,
+            description,
+            color
+          })
+        }
+        type="submit"
+        name="save_reminder"
+      >
         Save Reminder
       </S.SaveReminderInput>
     </S.Sidebar>

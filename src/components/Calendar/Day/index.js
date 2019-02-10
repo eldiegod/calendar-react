@@ -3,7 +3,7 @@ import React from 'react'
 import * as S from './styles'
 
 const Day = ({ day, disabled, selected, reminders = [] }) => {
-  console.log(reminders)
+  // console.log(reminders)
   return (
     <S.Box selected={selected} disabled={disabled}>
       {day}
