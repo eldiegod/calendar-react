@@ -35,12 +35,7 @@ const Calendar = () => {
   const totalDaysInCurrentMonth = new Date(currentDate.year, currentDate.month, 0).getDate()
   const startOfMonthOffsetDays = daysOfTheWeek.indexOf(firstDayOfTheMonth)
   const endOfMonthOffsetDays = daysOfTheWeek.length - 1 - daysOfTheWeek.indexOf(lastDayOfTheMonth)
-  // console.log(startOfMonthOffsetDays)
-  // console.log(firstDayOfTheMonth)
-  // console.log(lastDayOfTheMonth)
-  // console.log(endOfMonthOffsetDays)
-  // console.log(totalDaysInCurrentMonth)
-  // console.log(state)
+
   return (
     <S.Grid>
       <S.Header>{moment(currentFullDate).format('YYYY MMMM')}</S.Header>
@@ -53,19 +48,18 @@ const Calendar = () => {
       {[...new Array(totalDaysInCurrentMonth)].map((undef, index) => (
         <Day
           onClick={() => {
-            console.log('click')
             setCurrentDate({ day: index + 1 })
           }}
           reminders={getRemindersByDate(
             moment(new Date(`${currentDate.year}-${currentDate.month}-${index + 1}`)).format('YYYY-MM-DD')
           )}
           selected={currentDate.day === index + 1}
-          key={startOfMonthOffsetDays + index}
+          key={startOfMonthOffsetDays + index + 1}
           day={index + 1}
         />
       ))}
       {[...new Array(endOfMonthOffsetDays)].map((undef, index) => (
-        <Day disabled key={totalDaysInCurrentMonth + index} />
+        <Day disabled key={totalDaysInCurrentMonth + startOfMonthOffsetDays + index + 1} />
       ))}
     </S.Grid>
   )

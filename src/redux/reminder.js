@@ -42,7 +42,7 @@ export const reminder = createSlice({
       const timeToNumber = time => {
         return parseInt(time.replace(':', ''))
       }
-      state.allReminders.push(action.payload)
+      state.allReminders.push({ ...action.payload, id: Math.random() })
       state.allReminders.sort((a, b) => {
         return timeToNumber(a.time) - timeToNumber(b.time)
       })
@@ -57,9 +57,6 @@ export const getRemindersByDate = createSelector(
   ['reminder.allReminders', { path: 0, argIndex: 1 }],
   (allReminders, date) =>
     allReminders.filter(reminder => {
-      // console.log(reminder.date == date)
-      // console.log(reminder.date)
-      // console.log(date)
       return reminder.date === date
     })
 )

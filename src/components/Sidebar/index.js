@@ -62,7 +62,7 @@ const Sidebar = () => {
       <S.Title>Your reminders for {currentFullDate.format('MMMM DD')} </S.Title>
       <S.Reminders>
         {currentReminders.map(reminder => (
-          <S.Reminder color={reminder.color}>
+          <S.Reminder key={reminder.id} color={reminder.color}>
             {reminder.time} - {reminder.description}
           </S.Reminder>
         ))}
