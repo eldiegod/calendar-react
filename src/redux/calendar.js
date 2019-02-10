@@ -1,16 +1,18 @@
 import { createSlice, createSelector } from 'redux-starter-kit'
 import moment from 'moment'
 
+const initialState = {
+  currentDate: {
+    month: parseInt(moment().format('MM')),
+    day: parseInt(moment().format('DD')),
+    year: parseInt(moment().format('YYYY'))
+  },
+  daysOfTheWeek: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+}
+
 export const calendar = createSlice({
   slice: 'calendar',
-  initialState: {
-    currentDate: {
-      month: parseInt(moment().format('MM')),
-      day: parseInt(moment().format('DD')),
-      year: parseInt(moment().format('YYYY'))
-    },
-    daysOfTheWeek: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
-  },
+  initialState,
   reducers: {
     setCurrentDate: (state, action) => {
       state.currentDate = { ...state.currentDate, ...action.payload }
@@ -32,11 +34,11 @@ export const calendar = createSlice({
   }
 })
 
+// selectors
 export const getCurrentFullDate = createSelector(
   ['calendar.currentDate'],
-  ({ day, month, year }) => moment(new Date(`${year}-${month}-${day}`)).format('YYYY-MM-DD')
+  ({ day, month, year }) => moment(new Date(`${year}-${month}-${day}`))
 )
-
 export const getFirstDayOfTheMonth = createSelector(
   ['calendar.currentDate'],
   ({ month, year }) =>
@@ -44,7 +46,6 @@ export const getFirstDayOfTheMonth = createSelector(
       .format('dddd')
       .toLowerCase()
 )
-
 export const getLastDayOfTheMonth = createSelector(
   ['calendar.currentDate'],
   ({ month, year }) =>
@@ -52,4 +53,16 @@ export const getLastDayOfTheMonth = createSelector(
       .endOf('month')
       .format('dddd')
       .toLowerCase()
+)
+export const getDaysInCurrentMonth = createSelector(
+  [getCurrentFullDate],
+  currentFullDate => moment(currentFullDate).daysInMonth()
+)
+export const getStartOfMonthOffsetDays = createSelector(
+  [getFirstDayOfTheMonth, 'calendar.daysOfTheWeek'],
+  (firstDayOfTheMonth, daysOfTheWeek) => daysOfTheWeek.indexOf(firstDayOfTheMonth)
+)
+export const getEndOfMonthOffsetDays = createSelector(
+  [getLastDayOfTheMonth, 'calendar.daysOfTheWeek'],
+  (lastDayOfTheMonth, daysOfTheWeek) => daysOfTheWeek.length - 1 - daysOfTheWeek.indexOf(lastDayOfTheMonth)
 )

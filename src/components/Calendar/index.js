@@ -5,16 +5,26 @@ import moment from 'moment'
 import * as S from './styles'
 import Day from './Day'
 
-import { getFirstDayOfTheMonth, getLastDayOfTheMonth, getCurrentFullDate, calendar } from 'redux/calendar'
+import {
+  getCurrentFullDate,
+  getDaysInCurrentMonth,
+  getStartOfMonthOffsetDays,
+  getEndOfMonthOffsetDays,
+  calendar
+} from 'redux/calendar'
 import { getRemindersByDate } from 'redux/reminder'
 
 const mapStateToProps = state => ({
   currentDate: state.calendar.currentDate,
   daysOfTheWeek: state.calendar.daysOfTheWeek,
-  firstDayOfTheMonth: getFirstDayOfTheMonth(state),
-  lastDayOfTheMonth: getLastDayOfTheMonth(state),
+  daysInCurrentMonth: getDaysInCurrentMonth(state),
   currentFullDate: getCurrentFullDate(state),
-  getRemindersByDate: date => getRemindersByDate(state, [date])
+  startOfMonthOffsetDays: getStartOfMonthOffsetDays(state),
+  endOfMonthOffsetDays: getEndOfMonthOffsetDays(state),
+  getRemindersByDate: date =>
+    getRemindersByDate(state, [
+      moment(new Date(`${date.year}-${date.month}-${date.day}`)).format('YYYY-MM-DD')
+    ])
 })
 const mapDispatchToProps = dispatch => ({
   setCurrentDate: date => dispatch(calendar.actions.setCurrentDate(date)),
@@ -27,18 +37,15 @@ const Calendar = () => {
   const {
     currentDate,
     daysOfTheWeek,
-    firstDayOfTheMonth,
-    lastDayOfTheMonth,
+    daysInCurrentMonth,
+    startOfMonthOffsetDays,
+    endOfMonthOffsetDays,
     currentFullDate,
     getRemindersByDate,
     setCurrentDate,
     decreaseMonth,
     incrementMonth
   } = useConnect()
-  // TODO: move local functions to redux
-  const totalDaysInCurrentMonth = new Date(currentDate.year, currentDate.month, 0).getDate()
-  const startOfMonthOffsetDays = daysOfTheWeek.indexOf(firstDayOfTheMonth)
-  const endOfMonthOffsetDays = daysOfTheWeek.length - 1 - daysOfTheWeek.indexOf(lastDayOfTheMonth)
 
   return (
     <S.Grid>
@@ -53,16 +60,14 @@ const Calendar = () => {
       {[...new Array(startOfMonthOffsetDays)].map((undef, index) => (
         <Day disabled key={index} />
       ))}
-      {[...new Array(totalDaysInCurrentMonth)].map((undef, index) => {
+      {[...new Array(daysInCurrentMonth)].map((undef, index) => {
         let day = index + 1
         return (
           <Day
             onClick={() => {
-              setCurrentDate({ day })
+              setCurrentDate({ ...currentDate, day })
             }}
-            reminders={getRemindersByDate(
-              moment(new Date(`${currentDate.year}-${currentDate.month}-${day}`)).format('YYYY-MM-DD')
-            )}
+            reminders={getRemindersByDate({ ...currentDate, day })}
             selected={currentDate.day === day}
             key={startOfMonthOffsetDays + day}
             day={day}
@@ -70,7 +75,7 @@ const Calendar = () => {
         )
       })}
       {[...new Array(endOfMonthOffsetDays)].map((undef, index) => (
-        <Day disabled key={totalDaysInCurrentMonth + startOfMonthOffsetDays + index + 1} />
+        <Day disabled key={daysInCurrentMonth + startOfMonthOffsetDays + index + 1} />
       ))}
     </S.Grid>
   )

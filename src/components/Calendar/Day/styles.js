@@ -24,12 +24,11 @@ export const Reminders = styled.div`
 export const Reminder = styled.div`
   color: white;
   background-color: ${prop('color', 'magenta')};
-  /* margin-top: 5px; */
   padding: 5px;
   font-size: 0.75rem;
   word-break: break-all;
-  /* text-align: right; */
 `
 export const SeeMore = styled.div`
   font-size: 0.75rem;
+  text-decoration: underline;
 `

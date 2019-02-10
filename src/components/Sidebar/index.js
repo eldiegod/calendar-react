@@ -3,7 +3,7 @@ import { createUseConnect } from 'react-use-redux'
 import moment from 'moment'
 
 import { getCurrentFullDate } from 'redux/calendar'
-import { reminderActions, getRemindersByDate } from 'redux/reminder'
+import { reminder, getRemindersByDate } from 'redux/reminder'
 
 import * as S from './styles'
 import Reminders from './Reminders'
@@ -16,8 +16,8 @@ const mapStateToProps = state => ({
   }
 })
 const mapDispatchToProps = dispatch => ({
-  addReminder: reminder => dispatch(reminderActions.addReminder(reminder)),
-  deleteReminderById: id => dispatch(reminderActions.deleteReminderById(id))
+  addReminder: reminderToAdd => dispatch(reminder.actions.addReminder(reminderToAdd)),
+  deleteReminderById: id => dispatch(reminder.actions.deleteReminderById(id))
 })
 const useConnect = createUseConnect(mapStateToProps, mapDispatchToProps)
 
@@ -29,10 +29,13 @@ const Sidebar = () => {
   const [color, setColor] = useState('#ff40ff')
   const [description, setDescription] = useState('Add a description...')
 
+  // update sidebar on currentFullDate change
   useEffect(() => {
     setDate(currentFullDate.format('YYYY-MM-DD'))
   }, [currentFullDate])
 
+  // deletes the reminder but replaces the local form
+  // state with the deleted reminder's data
   const editReminder = reminder => {
     setDate(reminder.date)
     setTime(reminder.time)
@@ -74,7 +77,7 @@ const Sidebar = () => {
         Save Reminder
       </S.SaveReminderButton>
       {currentReminders.length > 0 && (
-        <S.Title>Your reminders for {currentFullDate.format('MMMM DD')} </S.Title>
+        <S.Title>Your reminders for {currentFullDate.format('MMMM DD')}: </S.Title>
       )}
       <Reminders
         onDeleteReminder={deleteReminderById}
