@@ -23,11 +23,19 @@ const useConnect = createUseConnect(mapStateToProps, mapDispatchToProps)
 
 const Sidebar = () => {
   const { currentDate, currentFullDate, currentReminders, addReminder, deleteReminderById } = useConnect()
+  // local form state
   const [date, setDate] = useState(currentFullDate.format('YYYY-MM-DD'))
   const [time, setTime] = useState(moment().format('hh:mm'))
   const [color, setColor] = useState('#ff40ff')
   const [description, setDescription] = useState('Add a description...')
-  // console.log(currentReminders)
+
+  const editReminder = reminder => {
+    setDate(reminder.date)
+    setTime(reminder.time)
+    setColor(reminder.color)
+    setDescription(reminder.description)
+    deleteReminderById(reminder.id)
+  }
   return (
     <S.Sidebar>
       <S.Title>Add a new reminder 👇 </S.Title>
@@ -64,7 +72,11 @@ const Sidebar = () => {
       {currentReminders.length > 0 && (
         <S.Title>Your reminders for {currentFullDate.format('MMMM DD')} </S.Title>
       )}
-      <Reminders onDeleteReminder={deleteReminderById} reminders={currentReminders} />
+      <Reminders
+        onDeleteReminder={deleteReminderById}
+        onEditReminder={editReminder}
+        reminders={currentReminders}
+      />
     </S.Sidebar>
   )
 }

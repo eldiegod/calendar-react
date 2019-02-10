@@ -11,7 +11,7 @@ const Reminders = ({ reminders, onDeleteReminder, onEditReminder }) => {
             {reminder.time} - {reminder.description}
           </S.Text>
           <S.Actions>
-            <S.TextButton onClick={() => onEditReminder(reminder.id)}>edit</S.TextButton>
+            <S.TextButton onClick={() => onEditReminder(reminder)}>edit</S.TextButton>
             <S.TextButton onClick={() => onDeleteReminder(reminder.id)}>delete</S.TextButton>
           </S.Actions>
         </S.Reminder>

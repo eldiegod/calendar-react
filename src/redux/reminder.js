@@ -26,13 +26,6 @@ export const reminder = createSlice({
         time: '13:19',
         description: 'This is third reminder',
         color: '#00F'
-      },
-      {
-        id: 4,
-        date: '2019-02-19',
-        time: '16:19',
-        description: 'This is first reminder',
-        color: '#00F'
       }
     ]
   },
@@ -48,9 +41,6 @@ export const reminder = createSlice({
       })
     },
     deleteReminderById: (state, action) => {
-      state.allReminders = state.allReminders.filter(reminder => reminder.id !== action.payload)
-    },
-    updateReminderById: (state, action) => {
       state.allReminders = state.allReminders.filter(reminder => reminder.id !== action.payload)
     }
   }
