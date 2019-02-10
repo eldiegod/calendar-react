@@ -1,6 +1,8 @@
 import styled from 'styled-components'
+import { prop } from 'styled-tools'
 
 export const Sidebar = styled.div`
+  overflow: scroll;
   display: inline-block;
   width: 25%;
   height: 100vh;
@@ -9,8 +11,8 @@ export const Sidebar = styled.div`
   vertical-align: top;
   /* background-color: aqua; */
 `
-export const DateTitle = styled.div`
-  margin-top: 15px;
+export const Title = styled.div`
+  margin-top: 20px;
 `
 export const InputBase = styled.input`
   border-top: none;
@@ -40,8 +42,29 @@ export const ColorInput = styled(InputBase)`
   width: 10%;
   border: none;
 `
-export const SaveReminderInput = styled.button`
+export const SaveReminderButton = styled.button`
   margin: 2rem auto;
   display: block;
   font-weight: bold;
+`
+export const Reminders = styled.div`
+  margin: 15px 10% 10% 10%;
+  color: white;
+  text-align: left;
+  *:last-child {
+    padding-bottom: 15px;
+  }
+  *:first-child {
+    padding-top: 15px;
+  }
+`
+
+export const Reminder = styled.div`
+  font-size: 0.75rem;
+  background-color: ${prop('color', 'magenta')};
+  padding: 12.5px;
+  &:hover {
+    border-style: dashed;
+    border: solid;
+  }
 `
