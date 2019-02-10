@@ -5,7 +5,7 @@ import moment from 'moment'
 import * as S from './styles'
 import Day from './Day'
 
-import { getFirstDayOfTheMonth, getLastDayOfTheMonth, getCurrentFullDate } from 'redux/calendar'
+import { getFirstDayOfTheMonth, getLastDayOfTheMonth, getCurrentFullDate, calendar } from 'redux/calendar'
 import { getRemindersByDate } from 'redux/reminder'
 
 const mapStateToProps = state => ({
@@ -14,9 +14,11 @@ const mapStateToProps = state => ({
   firstDayOfTheMonth: getFirstDayOfTheMonth(state),
   lastDayOfTheMonth: getLastDayOfTheMonth(state),
   currentFullDate: getCurrentFullDate(state),
-  storeState: state
+  getRemindersByDate: date => getRemindersByDate(state, [date])
 })
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = dispatch => ({
+  setCurrentDate: date => dispatch(calendar.actions.setCurrentDate(date))
+})
 const useConnect = createUseConnect(mapStateToProps, mapDispatchToProps)
 
 const Calendar = () => {
@@ -26,8 +28,10 @@ const Calendar = () => {
     firstDayOfTheMonth,
     lastDayOfTheMonth,
     currentFullDate,
-    storeState
+    getRemindersByDate,
+    setCurrentDate
   } = useConnect()
+  // TODO: move local functions to redux
   const totalDaysInCurrentMonth = new Date(currentDate.year, currentDate.month, 0).getDate()
   const startOfMonthOffsetDays = daysOfTheWeek.indexOf(firstDayOfTheMonth)
   const endOfMonthOffsetDays = daysOfTheWeek.length - 1 - daysOfTheWeek.indexOf(lastDayOfTheMonth)
@@ -48,9 +52,13 @@ const Calendar = () => {
       ))}
       {[...new Array(totalDaysInCurrentMonth)].map((undef, index) => (
         <Day
-          reminders={getRemindersByDate(storeState, [
+          onClick={() => {
+            console.log('click')
+            setCurrentDate({ day: index + 1 })
+          }}
+          reminders={getRemindersByDate(
             moment(new Date(`${currentDate.year}-${currentDate.month}-${index + 1}`)).format('YYYY-MM-DD')
-          ])}
+          )}
           selected={currentDate.day === index + 1}
           key={startOfMonthOffsetDays + index}
           day={index + 1}
