@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import { createUseConnect } from 'react-use-redux'
 import moment from 'moment'
 
-import * as S from './styles'
 import { getCurrentFullDate } from 'redux/calendar'
 import { reminderActions, getRemindersByDate } from 'redux/reminder'
+
+import * as S from './styles'
+import Reminders from './Reminders'
 
 const mapStateToProps = state => ({
   currentDate: state.calendar.currentDate,
@@ -59,14 +61,10 @@ const Sidebar = () => {
       >
         Save Reminder
       </S.SaveReminderButton>
-      <S.Title>Your reminders for {currentFullDate.format('MMMM DD')} </S.Title>
-      <S.Reminders>
-        {currentReminders.map(reminder => (
-          <S.Reminder key={reminder.id} color={reminder.color}>
-            {reminder.time} - {reminder.description}
-          </S.Reminder>
-        ))}
-      </S.Reminders>
+      {currentReminders.length > 0 && (
+        <S.Title>Your reminders for {currentFullDate.format('MMMM DD')} </S.Title>
+      )}
+      <Reminders onDeleteReminder={deleteReminderById} reminders={currentReminders} />
     </S.Sidebar>
   )
 }

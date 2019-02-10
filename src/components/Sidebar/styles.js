@@ -47,24 +47,3 @@ export const SaveReminderButton = styled.button`
   display: block;
   font-weight: bold;
 `
-export const Reminders = styled.div`
-  margin: 15px 10% 10% 10%;
-  color: white;
-  text-align: left;
-  *:last-child {
-    padding-bottom: 15px;
-  }
-  *:first-child {
-    padding-top: 15px;
-  }
-`
-
-export const Reminder = styled.div`
-  font-size: 0.75rem;
-  background-color: ${prop('color', 'magenta')};
-  padding: 12.5px;
-  &:hover {
-    border-style: dashed;
-    border: solid;
-  }
-`
