@@ -8,7 +8,7 @@ export const Grid = styled.div`
   grid-template-rows: 1fr 1fr repeat(5, 3fr [row-start]);
   font-weight: bold;
   grid-auto-flow: row;
-  background-color: lightcoral;
+  background-color: lightskyblue;
 `
 export const DayOfTheWeek = styled.div`
   text-align: center;

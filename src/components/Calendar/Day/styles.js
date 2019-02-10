@@ -1,12 +1,10 @@
 import styled, { css } from 'styled-components'
-import { ifProp } from 'styled-tools'
+import { ifProp, prop } from 'styled-tools'
 
 export const Box = styled.div`
   padding: 10px;
   border: solid;
-
   background-color: ${ifProp('selected', 'aqua')};
-
   ${ifProp(
     'disabled',
     css`
@@ -14,4 +12,17 @@ export const Box = styled.div`
       pointer-events: none;
     `
   )}
+`
+
+export const Reminders = styled.div`
+  padding-top: 10px;
+`
+
+export const Reminder = styled.div`
+  font-size: 0.75rem;
+  color: white;
+  background-color: ${prop('color', 'magenta')};
+  /* margin-top: 5px; */
+  padding: 5px;
+  /* text-align: right; */
 `
