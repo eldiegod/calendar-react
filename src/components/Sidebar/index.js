@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { createUseConnect } from 'react-use-redux'
 import moment from 'moment'
 
@@ -28,6 +28,10 @@ const Sidebar = () => {
   const [time, setTime] = useState(moment().format('hh:mm'))
   const [color, setColor] = useState('#ff40ff')
   const [description, setDescription] = useState('Add a description...')
+
+  useEffect(() => {
+    setDate(currentFullDate.format('YYYY-MM-DD'))
+  }, [currentFullDate])
 
   const editReminder = reminder => {
     setDate(reminder.date)

@@ -16,17 +16,25 @@ export const calendar = createSlice({
       state.currentDate = { ...state.currentDate, ...action.payload }
     },
     incrementMonth: (state, action) => {
-      state.currentDate.month = state.currentDate.month >= 12 ? 1 : state.currentDate.month + 1
+      //months indexed at 0 so need add +1 to decrease the month
+      const updatedDate = moment(getCurrentFullDate({ calendar: state })).month(state.currentDate.month)
+      state.currentDate.day = 1
+      state.currentDate.month = updatedDate.month() + 1 //months indexed at 0 so add +1
+      state.currentDate.year = updatedDate.year()
     },
     decreaseMonth: (state, action) => {
-      state.currentDate.month = state.currentDate.month <= 1 ? 12 : state.currentDate.month - 1
+      //months indexed at 0 so need take -2 to decrease the month
+      const updatedDate = moment(getCurrentFullDate({ calendar: state })).month(state.currentDate.month - 2)
+      state.currentDate.day = 1
+      state.currentDate.month = updatedDate.month() + 1 //months indexed at 0 so add +1
+      state.currentDate.year = updatedDate.year()
     }
   }
 })
 
 export const getCurrentFullDate = createSelector(
   ['calendar.currentDate'],
-  ({ day, month, year }) => new Date(`${year}-${month}-${day}`)
+  ({ day, month, year }) => moment(new Date(`${year}-${month}-${day}`)).format('YYYY-MM-DD')
 )
 
 export const getFirstDayOfTheMonth = createSelector(
